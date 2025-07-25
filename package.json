@@ -7,7 +7,7 @@
     "watch": "tsc --watch -noCheck",
     "clean": "rm -rf dist",
     "dev": "pnpm run clean && pnpm run watch",
-    "package": "pnpm run build && web-ext build --source-dir .",
+    "package": "pnpm run clean && pnpm run build && mkdir -p dist-ext && cp dist/*.js dist-ext/ && cp manifest-dist.json dist-ext/manifest.json && cp popup.html dist-ext/popup.html && cp -r styles dist-ext/styles && cp -r icons dist-ext/icons && web-ext build --overwrite-dest --source-dir ./dist-ext",
     "lint": "web-ext lint",
     "run": "web-ext run -f '/Applications/Firefox Developer Edition.app/Contents/MacOS/firefox' --verbose"
   },

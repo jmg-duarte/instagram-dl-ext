@@ -11,7 +11,7 @@
   ],
   "background": {
     "scripts": [
-      "dist/background.js"
+      "background.js"
     ],
     "persistent": false
   },
@@ -21,7 +21,7 @@
         "https://www.instagram.com/*"
       ],
       "js": [
-        "dist/content.js"
+        "content.js"
       ],
       "css": [
         "styles/content.css"
@@ -45,7 +45,7 @@
     "128": "icons/icon-128.png"
   },
   "web_accessible_resources": [
-    "dist/*"
+    "*"
   ],
   "browser_specific_settings": {
     "gecko": {

@@ -1,0 +1,51 @@
+name: Build and Package Extension
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v4
+      with:
+        version: 10
+
+    - name: Install dependencies
+      run: pnpm install
+
+    - name: Build TypeScript
+      run: pnpm run build
+
+    - name: Lint extension
+      run: pnpm run lint
+
+    - name: Package extension
+      run: pnpm run package
+
+    - name: Upload extension artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: instagram-downloader-firefox-extension
+        path: web-ext-artifacts/*.zip
+        retention-days: 30
+
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: web-ext-artifacts/*.zip
+        generate_release_notes: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
